@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Canlı TV ve radyo yayınlarını tek sayfadan başlatabileceğiniz modern, karanlık temalı oynatıcı."
+  />
   <title>Canlı TV ve Radyo</title>
   <style>
     :root {
@@ -17,7 +21,7 @@
       --border: rgba(255, 255, 255, 0.06);
     }
 
-   * {
+    * {
       box-sizing: border-box;
     }
 
@@ -38,512 +42,544 @@
       justify-content: space-between;
       gap: 16px;
       position: sticky;
-+      top: 0;
-+      backdrop-filter: blur(14px);
-+      background: linear-gradient(180deg, rgba(12, 16, 33, 0.9), rgba(12, 16, 33, 0.4));
-+      z-index: 10;
-+      border-bottom: 1px solid var(--border);
-+    }
-+
-+    .brand {
-+      display: flex;
-+      align-items: center;
-+      gap: 12px;
-+    }
-+
-+    .brand-icon {
-+      width: 44px;
-+      height: 44px;
-+      border-radius: 14px;
-+      background: linear-gradient(135deg, #6dd3ff, #6beab1);
-+      display: grid;
-+      place-items: center;
-+      color: #0c1021;
-+      font-weight: 700;
-+      letter-spacing: -0.5px;
-+      box-shadow: 0 10px 30px rgba(109, 211, 255, 0.4);
-+    }
-+
-+    h1 {
-+      margin: 0;
-+      font-size: clamp(20px, 3vw, 26px);
-+      letter-spacing: -0.5px;
-+    }
-+
-+    .tagline {
-+      color: var(--muted);
-+      margin: 4px 0 0;
-+      font-size: 14px;
-+    }
-+
-+    .pill {
-+      padding: 10px 16px;
-+      border-radius: 999px;
-+      border: 1px solid var(--border);
-+      background: rgba(255, 255, 255, 0.03);
-+      color: var(--text);
-+      display: inline-flex;
-+      align-items: center;
-+      gap: 8px;
-+      font-weight: 600;
-+      letter-spacing: 0.2px;
-+    }
-+
-+    main {
-+      padding: 8px clamp(18px, 4vw, 48px) 48px;
-+      display: grid;
-+      grid-template-columns: 2fr 1fr;
-+      gap: 18px;
-+    }
-+
-+    @media (max-width: 1024px) {
-+      main {
-+        grid-template-columns: 1fr;
-+      }
-+    }
-+
-+    section {
-+      background: var(--panel);
-+      border: 1px solid var(--border);
-+      border-radius: 18px;
-+      padding: 16px;
-+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
-+    }
-+
-+    .section-title {
-+      display: flex;
-+      align-items: center;
-+      justify-content: space-between;
-+      gap: 12px;
-+      margin-bottom: 12px;
-+    }
-+
-+    .section-title h2 {
-+      margin: 0;
-+      font-size: 18px;
-+      letter-spacing: -0.2px;
-+    }
-+
-+    .status-dot {
-+      width: 10px;
-+      height: 10px;
-+      border-radius: 50%;
-+      display: inline-block;
-+      margin-left: 6px;
-+      background: var(--success);
-+      box-shadow: 0 0 0 6px rgba(107, 234, 177, 0.18);
-+    }
-+
-+    .player-card {
-+      background: var(--card);
-+      border-radius: 16px;
-+      padding: 12px;
-+      border: 1px solid var(--border);
-+    }
-+
-+    video,
-+    audio {
-+      width: 100%;
-+      border-radius: 12px;
-+      outline: none;
-+      border: 1px solid var(--border);
-+      background: #04060f;
-+    }
-+
-+    .meta {
-+      display: flex;
-+      justify-content: space-between;
-+      align-items: center;
-+      margin-top: 10px;
-+      gap: 12px;
-+    }
-+
-+    .meta h3 {
-+      margin: 0;
-+      font-size: 16px;
-+      letter-spacing: -0.2px;
-+    }
-+
-+    .meta p {
-+      margin: 4px 0 0;
-+      color: var(--muted);
-+      font-size: 13px;
-+    }
-+
-+    .pill-inline {
-+      padding: 6px 10px;
-+      background: rgba(109, 211, 255, 0.12);
-+      color: var(--accent);
-+      border-radius: 10px;
-+      font-weight: 600;
-+      border: 1px solid rgba(109, 211, 255, 0.4);
-+      font-size: 13px;
-+    }
-+
-+    .channel-list {
-+      margin-top: 16px;
-+      display: grid;
-+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-+      gap: 12px;
-+    }
-+
-+    .channel-card {
-+      padding: 12px;
-+      background: linear-gradient(145deg, rgba(109, 211, 255, 0.1), rgba(12, 16, 33, 0.6));
-+      border: 1px solid var(--border);
-+      border-radius: 14px;
-+      cursor: pointer;
-+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-+      position: relative;
-+      overflow: hidden;
-+    }
-+
-+    .channel-card:hover {
-+      transform: translateY(-4px);
-+      border-color: rgba(109, 211, 255, 0.7);
-+      box-shadow: 0 15px 40px rgba(109, 211, 255, 0.16);
-+    }
-+
-+    .channel-card.active::after {
-+      content: "Canlı";
-+      position: absolute;
-+      top: 10px;
-+      right: 10px;
-+      padding: 4px 8px;
-+      border-radius: 8px;
-+      background: rgba(107, 234, 177, 0.16);
-+      color: var(--success);
-+      font-size: 12px;
-+      font-weight: 700;
-+    }
-+
-+    .channel-card h4 {
-+      margin: 0 0 4px;
-+      font-size: 15px;
-+    }
-+
-+    .channel-card p {
-+      margin: 0;
-+      color: var(--muted);
-+      font-size: 13px;
-+    }
-+
-+    .grid-two {
-+      display: grid;
-+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-+      gap: 12px;
-+    }
-+
-+    .stat {
-+      padding: 14px;
-+      border-radius: 14px;
-+      background: rgba(255, 255, 255, 0.02);
-+      border: 1px solid var(--border);
-+    }
-+
-+    .stat h3 {
-+      margin: 0;
-+      font-size: 14px;
-+      color: var(--muted);
-+    }
-+
-+    .stat strong {
-+      display: block;
-+      margin-top: 6px;
-+      font-size: 22px;
-+      letter-spacing: -0.5px;
-+    }
-+
-+    .guide {
-+      margin-top: 12px;
-+      padding: 12px;
-+      background: rgba(255, 255, 255, 0.02);
-+      border: 1px solid var(--border);
-+      border-radius: 14px;
-+      display: grid;
-+      grid-template-columns: 1fr 1fr;
-+      gap: 12px;
-+    }
-+
-+    @media (max-width: 720px) {
-+      .guide {
-+        grid-template-columns: 1fr;
-+      }
-+    }
-+
-+    .guide-item {
-+      padding: 12px;
-+      border-radius: 12px;
-+      background: rgba(109, 211, 255, 0.06);
-+      border: 1px solid rgba(109, 211, 255, 0.3);
-+    }
-+
-+    .guide-item strong {
-+      display: block;
-+      margin-bottom: 4px;
-+    }
-+
-+    .actions {
-+      display: flex;
-+      align-items: center;
-+      gap: 12px;
-+      flex-wrap: wrap;
-+    }
-+
-+    .btn {
-+      border: none;
-+      padding: 10px 14px;
-+      border-radius: 12px;
-+      font-weight: 700;
-+      cursor: pointer;
-+      color: #04060f;
-+      background: linear-gradient(135deg, #6dd3ff, #6beab1);
-+      box-shadow: 0 10px 35px rgba(109, 211, 255, 0.35);
-+      transition: transform 0.18s ease, box-shadow 0.18s ease;
-+    }
-+
-+    .btn:hover {
-+      transform: translateY(-2px);
-+      box-shadow: 0 16px 40px rgba(109, 211, 255, 0.4);
-+    }
-+
-+    .btn-ghost {
-+      background: rgba(255, 255, 255, 0.05);
-+      color: var(--text);
-+      border: 1px solid var(--border);
-+      box-shadow: none;
-+    }
-+
-+    .badges {
-+      display: flex;
-+      gap: 8px;
-+      flex-wrap: wrap;
-+      margin-top: 8px;
-+    }
-+
-+    .badge {
-+      padding: 6px 10px;
-+      border-radius: 10px;
-+      background: rgba(255, 255, 255, 0.04);
-+      color: var(--muted);
-+      font-weight: 600;
-+      border: 1px solid var(--border);
-+      font-size: 12px;
-+    }
-+  </style>
-+</head>
-+<body>
-+  <header>
-+    <div class="brand">
-+      <div class="brand-icon">FM</div>
-+      <div>
-+        <h1>Canlı TV &amp; Radyo Merkezi</h1>
-+        <p class="tagline">Tek tıkla uluslararası TV kanalları ve radyo akışları</p>
-+      </div>
-+    </div>
-+    <span class="pill">24/7 Yayında <span class="status-dot" aria-hidden="true"></span></span>
-+  </header>
-+
-+  <main>
-+    <section>
-+      <div class="section-title">
-+        <h2>TV Oynatıcı</h2>
-+        <div class="actions">
-+          <button class="btn" id="playTv">Başlat</button>
-+          <button class="btn btn-ghost" id="pauseTv">Duraklat</button>
-+        </div>
-+      </div>
-+      <div class="player-card">
-+        <video id="tvPlayer" controls playsinline poster="https://images.unsplash.com/photo-1461151304267-38535e780c79?auto=format&fit=crop&w=1200&q=80"></video>
-+        <div class="meta">
-+          <div>
-+            <h3 id="tvTitle">Seçili kanal yok</h3>
-+            <p id="tvDesc">Aşağıdan bir kanal seçerek canlı yayını başlatın.</p>
-+          </div>
-+          <span class="pill-inline" id="tvCategory">Kategori</span>
-+        </div>
-+      </div>
-+
-+      <div class="channel-list" id="tvList"></div>
-+    </section>
-+
-+    <section>
-+      <div class="section-title">
-+        <h2>Radyo Oynatıcı</h2>
-+        <div class="actions">
-+          <button class="btn" id="playRadio">Çal</button>
-+          <button class="btn btn-ghost" id="pauseRadio">Duraklat</button>
-+        </div>
-+      </div>
-+      <div class="player-card">
-+        <audio id="radioPlayer" controls></audio>
-+        <div class="meta">
-+          <div>
-+            <h3 id="radioTitle">Seçili istasyon yok</h3>
-+            <p id="radioDesc">Listeden bir radyo istasyonu seçin.</p>
-+          </div>
-+          <span class="pill-inline" id="radioCategory">Tarz</span>
-+        </div>
-+      </div>
-+
-+      <div class="channel-list" id="radioList"></div>
-+    </section>
-+  </main>
-+
-+  <main style="padding-top: 0;">
-+    <section>
-+      <div class="section-title">
-+        <h2>Yayın Rehberi</h2>
-+        <span class="pill">Topluluk Seçkisi</span>
-+      </div>
-+      <div class="grid-two">
-+        <div class="stat">
-+          <h3>Popüler TV kategorileri</h3>
-+          <strong>Haberler · Belgesel · Eğlence</strong>
-+          <p class="tagline">HD yayınlar destekleyen örnek kanallar listede.</p>
-+        </div>
-+        <div class="stat">
-+          <h3>Radyo türleri</h3>
-+          <strong>Lo-fi · Chillhop · Elektronik</strong>
-+          <p class="tagline">Arka plan müziği için reklamız kesintisiz akış.</p>
-+        </div>
-+      </div>
-+
-+      <div class="guide">
-+        <div class="guide-item">
-+          <strong>HD Video Desteği</strong>
-+          <span>Video oynatıcı HLS/mp4 akışlarını destekler. Seçtiğiniz kanal saniyeler içinde yüklenir.</span>
-+        </div>
-+        <div class="guide-item">
-+          <strong>Gecikme Göstergesi</strong>
-+          <span>Bir kanal seçerken yüklenme durumunu görürsünüz, başarısız olursa alternatif deneyin.</span>
-+        </div>
-+      </div>
-+
-+      <div class="badges">
-+        <span class="badge">Mobil uyumlu</span>
-+        <span class="badge">Karanlık tema</span>
-+        <span class="badge">Gerçek zamanlı</span>
-+        <span class="badge">Reklamsız demo</span>
-+      </div>
-+    </section>
-+  </main>
-+
-+  <script>
-+    const tvChannels = [
-+      {
-+        name: "Euro News (Demo)",
-+        url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
-+        description: "Uluslararası haberleri canlı takip edin.",
-+        category: "Haber",
-+      },
-+      {
-+        name: "NASA TV (Eğitim)",
-+        url: "https://nasatv-lh.akamaihd.net/i/NASA_101@319270/master.m3u8",
-+        description: "Uzay ajansından canlı yayın ve fırlatma yayını.",
-+        category: "Belgesel",
-+      },
-+      {
-+        name: "Big Buck Bunny",
-+        url: "https://test-videos.co.uk/vids/bigbuckbunny/m3u8/bigbuckbunny_720.m3u8",
-+        description: "Eğlenceli kısa animasyon film yayını.",
-+        category: "Eğlence",
-+      },
-+    ];
-+
-+    const radioStations = [
-+      {
-+        name: "Lo-fi Beats",
-+        url: "https://stream-ssl.vercel.stream/radio/lofi.m3u8",
-+        description: "Odaklanma ve çalışma için lo-fi mix.",
-+        category: "Lo-fi",
-+      },
-+      {
-+        name: "Chillhop Essentials",
-+        url: "https://stream-ssl.vercel.stream/radio/chillhop.m3u8",
-+        description: "Rahatlatıcı chillhop seçkisi.",
-+        category: "Chill",
-+      },
-+      {
-+        name: "Elektronik Mix",
-+        url: "https://stream-ssl.vercel.stream/radio/electronic.m3u8",
-+        description: "Tempo yükselten elektronik müzik.",
-+        category: "Elektronik",
-+      },
-+    ];
-+
-+    const tvList = document.getElementById("tvList");
-+    const radioList = document.getElementById("radioList");
-+    const tvPlayer = document.getElementById("tvPlayer");
-+    const radioPlayer = document.getElementById("radioPlayer");
-+    const tvTitle = document.getElementById("tvTitle");
-+    const tvDesc = document.getElementById("tvDesc");
-+    const tvCategory = document.getElementById("tvCategory");
-+    const radioTitle = document.getElementById("radioTitle");
-+    const radioDesc = document.getElementById("radioDesc");
-+    const radioCategory = document.getElementById("radioCategory");
-+
-+    function createChannelCard(item, type) {
-+      const card = document.createElement("div");
-+      card.className = "channel-card";
-+      card.innerHTML = `<h4>${item.name}</h4><p>${item.description}</p>`;
-+      card.addEventListener("click", () => selectStream(item, type, card));
-+      return card;
-+    }
-+
-+    function clearActive(listRoot) {
-+      listRoot.querySelectorAll(".channel-card").forEach((el) => el.classList.remove("active"));
-+    }
-+
-+    async function selectStream(item, type, card) {
-+      const isTv = type === "tv";
-+      clearActive(isTv ? tvList : radioList);
-+      card.classList.add("active");
-+
-+      const player = isTv ? tvPlayer : radioPlayer;
-+      const titleEl = isTv ? tvTitle : radioTitle;
-+      const descEl = isTv ? tvDesc : radioDesc;
-+      const badgeEl = isTv ? tvCategory : radioCategory;
-+
-+      titleEl.textContent = item.name;
-+      descEl.textContent = item.description;
-+      badgeEl.textContent = item.category;
-+
-+      player.src = item.url;
-+      try {
-+        await player.play();
-+      } catch (error) {
-+        console.warn("Oynatma hatası", error);
-+        badgeEl.textContent = "Yayın yüklenemedi";
-+        badgeEl.style.background = "rgba(255, 117, 143, 0.12)";
-+        badgeEl.style.color = "var(--danger)";
-+      }
-+    }
-+
-+    function renderLists() {
-+      tvChannels.forEach((channel, idx) => {
-+        const card = createChannelCard(channel, "tv");
-+        tvList.appendChild(card);
-+        if (idx === 0) {
-+          selectStream(channel, "tv", card);
-+        }
-+      });
-+
-+      radioStations.forEach((station, idx) => {
-+        const card = createChannelCard(station, "radio");
-+        radioList.appendChild(card);
-+        if (idx === 0) {
-+          selectStream(station, "radio", card);
-+        }
-+      });
-+    }
-+
-+    document.getElementById("playTv").addEventListener("click", () => tvPlayer.play());
-+    document.getElementById("pauseTv").addEventListener("click", () => tvPlayer.pause());
-+    document.getElementById("playRadio").addEventListener("click", () => radioPlayer.play());
-+    document.getElementById("pauseRadio").addEventListener("click", () => radioPlayer.pause());
-+
-+    renderLists();
-+  </script>
-+</body>
-+</html>
+      top: 0;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(12, 16, 33, 0.9), rgba(12, 16, 33, 0.4));
+      z-index: 10;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #6dd3ff, #6beab1);
+      display: grid;
+      place-items: center;
+      color: #0c1021;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      box-shadow: 0 10px 30px rgba(109, 211, 255, 0.4);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(20px, 3vw, 26px);
+      letter-spacing: -0.5px;
+    }
+
+    .tagline {
+      color: var(--muted);
+      margin: 4px 0 0;
+      font-size: 14px;
+    }
+
+    .pill {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    main {
+      padding: 8px clamp(18px, 4vw, 48px) 48px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 1024px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    section {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-left: 6px;
+      background: var(--success);
+      box-shadow: 0 0 0 6px rgba(107, 234, 177, 0.18);
+    }
+
+    .player-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px solid var(--border);
+    }
+
+    video,
+    audio {
+      width: 100%;
+      border-radius: 12px;
+      outline: none;
+      border: 1px solid var(--border);
+      background: #04060f;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      gap: 12px;
+    }
+
+    .meta h3 {
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: -0.2px;
+    }
+
+    .meta p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pill-inline {
+      padding: 6px 10px;
+      background: rgba(109, 211, 255, 0.12);
+      color: var(--accent);
+      border-radius: 10px;
+      font-weight: 600;
+      border: 1px solid rgba(109, 211, 255, 0.4);
+      font-size: 13px;
+    }
+
+    .channel-list {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .channel-card {
+      padding: 12px;
+      background: linear-gradient(145deg, rgba(109, 211, 255, 0.1), rgba(12, 16, 33, 0.6));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .channel-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(109, 211, 255, 0.7);
+      box-shadow: 0 15px 40px rgba(109, 211, 255, 0.16);
+    }
+
+    .channel-card.active::after {
+      content: "Canlı";
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 4px 8px;
+      border-radius: 8px;
+      background: rgba(107, 234, 177, 0.16);
+      color: var(--success);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .channel-card h4 {
+      margin: 0 0 4px;
+      font-size: 15px;
+    }
+
+    .channel-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+    }
+
+    .stat h3 {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .stat strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 22px;
+      letter-spacing: -0.5px;
+    }
+
+    .guide {
+      margin-top: 12px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 720px) {
+      .guide {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .guide-item {
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(109, 211, 255, 0.06);
+      border: 1px solid rgba(109, 211, 255, 0.3);
+    }
+
+    .guide-item strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      color: #04060f;
+      background: linear-gradient(135deg, #6dd3ff, #6beab1);
+      box-shadow: 0 10px 35px rgba(109, 211, 255, 0.35);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(109, 211, 255, 0.4);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: none;
+    }
+
+    .badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .badge {
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      font-weight: 600;
+      border: 1px solid var(--border);
+      font-size: 12px;
+    }
+
+    footer {
+      margin: 16px clamp(18px, 4vw, 48px) 32px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(109, 211, 255, 0.08), rgba(12, 16, 33, 0.8));
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    footer p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer strong {
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-icon">FM</div>
+      <div>
+        <h1>Canlı TV &amp; Radyo Merkezi</h1>
+        <p class="tagline">Tek tıkla uluslararası TV kanalları ve radyo akışları</p>
+      </div>
+    </div>
+    <span class="pill">24/7 Yayında <span class="status-dot" aria-hidden="true"></span></span>
+  </header>
+
+  <main>
+    <section>
+      <div class="section-title">
+        <h2>TV Oynatıcı</h2>
+        <div class="actions">
+          <button class="btn" id="playTv">Başlat</button>
+          <button class="btn btn-ghost" id="pauseTv">Duraklat</button>
+        </div>
+      </div>
+      <div class="player-card">
+        <video id="tvPlayer" controls playsinline poster="https://images.unsplash.com/photo-1461151304267-38535e780c79?auto=format&fit=crop&w=1200&q=80"></video>
+        <div class="meta">
+          <div>
+            <h3 id="tvTitle">Seçili kanal yok</h3>
+            <p id="tvDesc">Aşağıdan bir kanal seçerek canlı yayını başlatın.</p>
+          </div>
+          <span class="pill-inline" id="tvCategory">Kategori</span>
+        </div>
+      </div>
+
+      <div class="channel-list" id="tvList"></div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>Radyo Oynatıcı</h2>
+        <div class="actions">
+          <button class="btn" id="playRadio">Çal</button>
+          <button class="btn btn-ghost" id="pauseRadio">Duraklat</button>
+        </div>
+      </div>
+      <div class="player-card">
+        <audio id="radioPlayer" controls></audio>
+        <div class="meta">
+          <div>
+            <h3 id="radioTitle">Seçili istasyon yok</h3>
+            <p id="radioDesc">Listeden bir radyo istasyonu seçin.</p>
+          </div>
+          <span class="pill-inline" id="radioCategory">Tarz</span>
+        </div>
+      </div>
+
+      <div class="channel-list" id="radioList"></div>
+    </section>
+  </main>
+
+  <main style="padding-top: 0;">
+    <section>
+      <div class="section-title">
+        <h2>Yayın Rehberi</h2>
+        <span class="pill">Topluluk Seçkisi</span>
+      </div>
+      <div class="grid-two">
+        <div class="stat">
+          <h3>Popüler TV kategorileri</h3>
+          <strong>Haberler · Belgesel · Eğlence</strong>
+          <p class="tagline">HD yayınlar destekleyen örnek kanallar listede.</p>
+        </div>
+        <div class="stat">
+          <h3>Radyo türleri</h3>
+          <strong>Lo-fi · Chillhop · Elektronik</strong>
+          <p class="tagline">Arka plan müziği için reklamsız kesintisiz akış.</p>
+        </div>
+      </div>
+
+      <div class="guide">
+        <div class="guide-item">
+          <strong>HD Video Desteği</strong>
+          <span>Video oynatıcı HLS/mp4 akışlarını destekler. Seçtiğiniz kanal saniyeler içinde yüklenir.</span>
+        </div>
+        <div class="guide-item">
+          <strong>Gecikme Göstergesi</strong>
+          <span>Bir kanal seçerken yüklenme durumunu görürsünüz, başarısız olursa alternatif deneyin.</span>
+        </div>
+      </div>
+
+      <div class="badges">
+        <span class="badge">Mobil uyumlu</span>
+        <span class="badge">Karanlık tema</span>
+        <span class="badge">Gerçek zamanlı</span>
+        <span class="badge">Reklamsız demo</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>Kaydedildi</strong>
+      <p>Listelediğiniz TV ve radyo örnekleriyle son düzenlemeler aktarıldı.</p>
+    </div>
+    <span class="pill">Güncel sürüm</span>
+  </footer>
+
+  <script>
+    const tvChannels = [
+      {
+        name: "Euro News (Demo)",
+        url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+        description: "Uluslararası haberleri canlı takip edin.",
+        category: "Haber",
+      },
+      {
+        name: "NASA TV (Eğitim)",
+        url: "https://nasatv-lh.akamaihd.net/i/NASA_101@319270/master.m3u8",
+        description: "Uzay ajansından canlı yayın ve fırlatma yayını.",
+        category: "Belgesel",
+      },
+      {
+        name: "Big Buck Bunny",
+        url: "https://test-videos.co.uk/vids/bigbuckbunny/m3u8/bigbuckbunny_720.m3u8",
+        description: "Eğlenceli kısa animasyon film yayını.",
+        category: "Eğlence",
+      },
+    ];
+
+    const radioStations = [
+      {
+        name: "Lo-fi Beats",
+        url: "https://stream-ssl.vercel.stream/radio/lofi.m3u8",
+        description: "Odaklanma ve çalışma için lo-fi mix.",
+        category: "Lo-fi",
+      },
+      {
+        name: "Chillhop Essentials",
+        url: "https://stream-ssl.vercel.stream/radio/chillhop.m3u8",
+        description: "Rahatlatıcı chillhop seçkisi.",
+        category: "Chill",
+      },
+      {
+        name: "Elektronik Mix",
+        url: "https://stream-ssl.vercel.stream/radio/electronic.m3u8",
+        description: "Tempo yükselten elektronik müzik.",
+        category: "Elektronik",
+      },
+    ];
+
+    const tvList = document.getElementById("tvList");
+    const radioList = document.getElementById("radioList");
+    const tvPlayer = document.getElementById("tvPlayer");
+    const radioPlayer = document.getElementById("radioPlayer");
+    const tvTitle = document.getElementById("tvTitle");
+    const tvDesc = document.getElementById("tvDesc");
+    const tvCategory = document.getElementById("tvCategory");
+    const radioTitle = document.getElementById("radioTitle");
+    const radioDesc = document.getElementById("radioDesc");
+    const radioCategory = document.getElementById("radioCategory");
+
+    function createChannelCard(item, type) {
+      const card = document.createElement("div");
+      card.className = "channel-card";
+      card.innerHTML = `<h4>${item.name}</h4><p>${item.description}</p>`;
+      card.addEventListener("click", () => selectStream(item, type, card));
+      return card;
+    }
+
+    function clearActive(listRoot) {
+      listRoot.querySelectorAll(".channel-card").forEach((el) => el.classList.remove("active"));
+    }
+
+    async function selectStream(item, type, card) {
+      const isTv = type === "tv";
+      clearActive(isTv ? tvList : radioList);
+      card.classList.add("active");
+
+      const player = isTv ? tvPlayer : radioPlayer;
+      const titleEl = isTv ? tvTitle : radioTitle;
+      const descEl = isTv ? tvDesc : radioDesc;
+      const badgeEl = isTv ? tvCategory : radioCategory;
+
+      titleEl.textContent = item.name;
+      descEl.textContent = item.description;
+      badgeEl.textContent = item.category;
+
+      player.src = item.url;
+      try {
+        await player.play();
+      } catch (error) {
+        console.warn("Oynatma hatası", error);
+        badgeEl.textContent = "Yayın yüklenemedi";
+        badgeEl.style.background = "rgba(255, 117, 143, 0.12)";
+        badgeEl.style.color = "var(--danger)";
+      }
+    }
+
+    function renderLists() {
+      tvChannels.forEach((channel, idx) => {
+        const card = createChannelCard(channel, "tv");
+        tvList.appendChild(card);
+        if (idx === 0) {
+          selectStream(channel, "tv", card);
+        }
+      });
+
+      radioStations.forEach((station, idx) => {
+        const card = createChannelCard(station, "radio");
+        radioList.appendChild(card);
+        if (idx === 0) {
+          selectStream(station, "radio", card);
+        }
+      });
+    }
+
+    document.getElementById("playTv").addEventListener("click", () => tvPlayer.play());
+    document.getElementById("pauseTv").addEventListener("click", () => tvPlayer.pause());
+    document.getElementById("playRadio").addEventListener("click", () => radioPlayer.play());
+    document.getElementById("pauseRadio").addEventListener("click", () => radioPlayer.pause());
+
+    renderLists();
+  </script>
+</body>
+</html>
